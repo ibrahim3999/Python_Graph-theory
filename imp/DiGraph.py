@@ -3,6 +3,7 @@ import random
 import sys
 from typing import List
 from NodeData import NodeData
+from queue import PriorityQueue
 from src.GraphInterface import GraphInterface
 
 
@@ -52,8 +53,23 @@ class DiGraph(GraphInterface):
     def get_mc(self) -> int:
         return self.__mc
 
+    def get_all_v(self) -> dict:
+        return self.Nodes
+
+
+    def all_in_edges_of_node(self, id1: int) -> dict:
+        if id1 not in self.Nodes:
+            return {}
+        return self.Edges_in.get(id1)
+
+    def all_out_edges_of_node(self, id1: int) -> dict:
+        if id1 not in self.Nodes:
+            return {}
+        return self.Edges_out.get(id1)
+
     def e_size(self) -> int:
         return self.__edgeSize
+
 
     def v_size(self) -> int:
         return len(self.Nodes)
