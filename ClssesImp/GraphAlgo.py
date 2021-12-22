@@ -1,7 +1,7 @@
 import json
 from typing import List
 
-from ClssesImp.DiGraph import DiGraph
+from DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
 
@@ -15,34 +15,49 @@ class GraphAlgo(GraphAlgoInterface):
         return self.__G
 
     def load_from_json(self, file_name: str) -> bool:
-        with open(file_name, 'r') as f:
-            j = json.load(f)
-            Nodes = j['Nodes']
-            Egdes = j['Edges']
-        for i in Nodes:
-            pos = i["pos"]
-            self.__G.add_node(i["id"], pos)
-        for j in Egdes:
-            self.__G.add_edge(j["src"], j["dest"], j["w"])
-        return True
-
-        return False
+        try:
+            with open(file_name, 'r') as f:
+                j = json.load(f)
+                Nodes = j['Nodes']
+                Egdes = j['Edges']
+                for i in Nodes:
+                    pos = i["pos"]
+                    self.__G.add_node(i["id"], pos)
+                for j in Egdes:
+                    self.__G.add_edge(j["src"], j["dest"], j["w"])
+                return True
+        except NameError:
+            return False
+        finally:
+            f.close()
 
     def save_to_json(self, file_name: str) -> bool:
-        nodes = []
-        edges = []
-        for id in self.__G.Nodes.keys():
-            nodes.append({"id": id, "pos": self.__G.Nodes.get(id)})
-            for edge in self.__G.all_out_edges_of_node(id):
-                edges.append({"src": id, "w": self.__G.Nodes.get(id), "dest": edge})
+        if self.__G is None:
+            return False
+        ans = {"Edges": [], "Nodes": []}
+        for i in self.__G.Nodes.values():
+            nodeDict = {"id": i.get_key(), "pos": i.get_location()}
+            ans["Nodes"].append(nodeDict)
+            for j in self.__G.Edges_out.get(i.get_key()):
+                Edges = {"src": i.get_key(), "w": self.__G.Edges_out.get(i.get_key())[j], "dest": j}
+                ans["Edges"].append(Edges)
+        try:
+            with open(file_name, 'w') as W:
+                W.write(json.dumps(ans))
+                return True
+        except NameError:
+            return False
+        finally:
+            W.close()
 
-    def shortest_path(self, id1: int, id2: int) -> (float, list):
-        """
-        Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
-        @param id1: The start node id
-        @param id2: The end node id
-        @return: The distance of the path, a list of the nodes ids that the path goes through
-        Example:
+
+def shortest_path(self, id1: int, id2: int) -> (float, list):
+    """
+    Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
+    @param id1: The start node id
+    @param id2: The end node id
+    @return: The distance of the path, a list of the nodes ids that the path goes through
+    Example:
 #      >>> from GraphAlgo import GraphAlgo
 #       >>> g_algo = GraphAlgo()
 #        >>> g_algo.addNode(0)
@@ -54,11 +69,12 @@ class GraphAlgo(GraphAlgoInterface):
 #        (1, [0, 1])
 #        >>> g_algo.shortestPath(0,2)
 #        (5, [0, 1, 2])
-        Notes:
-        If there is no path between id1 and id2, or one of them dose not exist the function returns (float('inf'),[])
-        More info:
-        https://en.wikipedia.org/wiki/Dijkstra's_algorithm
-        """
+    Notes:
+    If there is no path between id1 and id2, or one of them dose not exist the function returns (float('inf'),[])
+    More info:
+    https://en.wikipedia.org/wiki/Dijkstra's_algorithm
+    :param self:
+    """
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         """
@@ -89,3 +105,6 @@ if __name__ == '__main__':
     b.load_from_json(r"C:\Users\User\Desktop\Ex3\data\A0.json")
     nodes = b.get_graph().e_size()
     print(nodes)
+    x = "C:\\Users\\User\\Desktop\\Ex3\\data\\y.json"
+    b.save_to_json(x)
+    print(a.Nodes.keys())
