@@ -18,7 +18,6 @@ class NodeData:
     def set_key(self, key: int):
         self.__key = key
 
-
     def get_tag(self) -> float:
         return self.__tag
 
