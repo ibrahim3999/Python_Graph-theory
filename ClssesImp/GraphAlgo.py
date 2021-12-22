@@ -1,7 +1,7 @@
 import json
 from typing import List
 
-from imp.DiGraph import DiGraph
+from ClssesImp.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
 

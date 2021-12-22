@@ -1,4 +1,4 @@
-from NodeData import NodeData
+from ClssesImp.NodeData import NodeData
 from src.GraphInterface import GraphInterface
 
 

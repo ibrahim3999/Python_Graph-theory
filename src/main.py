@@ -1,5 +1,5 @@
-from imp import DiGraph
-from imp.GraphAlgo import GraphAlgo
+from ClssesImp import DiGraph
+from ClssesImp import GraphAlgo
 
 
 def check():

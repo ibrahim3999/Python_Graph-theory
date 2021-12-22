@@ -1,3 +1,5 @@
+
+
 class NodeData:
     def __init__(self, key: int, tag=0, pos: tuple = None):
         self.__key: int = key
