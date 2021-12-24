@@ -51,30 +51,30 @@ class GraphAlgo(GraphAlgoInterface):
             W.close()
 
 
-def shortest_path(self, id1: int, id2: int) -> (float, list):
-    """
-    Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
-    @param id1: The start node id
-    @param id2: The end node id
-    @return: The distance of the path, a list of the nodes ids that the path goes through
-    Example:
-#      >>> from GraphAlgo import GraphAlgo
-#       >>> g_algo = GraphAlgo()
-#        >>> g_algo.addNode(0)
-#        >>> g_algo.addNode(1)
-#        >>> g_algo.addNode(2)
-#        >>> g_algo.addEdge(0,1,1)
-#        >>> g_algo.addEdge(1,2,4)
-#        >>> g_algo.shortestPath(0,1)
-#        (1, [0, 1])
-#        >>> g_algo.shortestPath(0,2)
-#        (5, [0, 1, 2])
-    Notes:
-    If there is no path between id1 and id2, or one of them dose not exist the function returns (float('inf'),[])
-    More info:
-    https://en.wikipedia.org/wiki/Dijkstra's_algorithm
-    :param self:
-    """
+    def shortest_path(self, id1: int, id2: int) -> (float, list):
+        path = []
+        nodes = self.graph.get_all_v()
+        if id1 not in nodes or id2 not in nodes:
+            return  math.inf, path
+        if id1 == id2:
+            path.append(id2)
+            return 0, path
+        self.reset(nodes)
+        nodes = self.dijkstra(nodes, id1)
+        dist = nodes[id2].get_tag()
+        if dist == math.inf:
+            return math.inf, path
+        dest = id2
+        while dest != -1:
+            next_node = nodes[dest]
+            dest = next_node.get_parent()
+            path.insert(0, next_node.get_key())
+        return dest, path
+    def reset(self, nodes):
+        for node in nodes.values():
+            node.set_tag(math.inf)
+            node.set_info("no")
+            node.set_parent(None)
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         """
@@ -89,13 +89,39 @@ def shortest_path(self, id1: int, id2: int) -> (float, list):
         :return: The nodes id, min-maximum distance
         """
 
-    def plot_graph(self) -> None:
-        """
-        Plots the graph.
-        If the nodes have a position, the nodes will be placed there.
-        Otherwise, they will be placed in a random but elegant manner.
-        @return: None
-        """
+       def plot_graph(self) -> None:
+        GraphFrame().draw_graph()
+
+
+    def dijkstra(self, Nodes: dict, id1: int) -> list:
+            firstnode = Nodes[id1]
+            firstnode.ClssesImp.NodeData.set_parent(-1)
+            queue = PriorityQueue()
+            queue.put(firstnode)
+            firstnode
+            while not (queue.empty()):
+                vx = queue.get()
+                EdgesOut = self.graph.all_out_edges_of_node(vx.get_key())
+                for key, weight in edges_out.items():
+                    if vx.ClssesImp.NodeData.get_tag() + weight < nodes[key].ClssesImp.NodeData.get_tag():
+                        queue.put(nodes[key])
+                        nodes[key].ClssesImp.NodeData.set_tag(vx.ClssesImp.NodeData.get_tag()+weight)
+                        nodes[key].ClssesImp.NodeData.set_parent(vx.ClssesImp.NodeData.get_key())
+
+            return nodes
+
+
+
+
+
+
+    def __eq__(self, other):
+        if type(other) is not GraphAlgo:
+            return False
+        if self.__G.__eq__(GraphAlgo.get_graph(other)):
+            return True
+        return False
+
 
 
 if __name__ == '__main__':
