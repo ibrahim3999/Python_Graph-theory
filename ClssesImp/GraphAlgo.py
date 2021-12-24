@@ -61,7 +61,7 @@ class GraphAlgo(GraphAlgoInterface):
         lstOfLst = [list(ele) for ele in min_tsp]
         sortList = sorted(lstOfLst)
         for i in range(len(sortList)):
-            if set(sorted(node_lst)).issubset(set(sorted(sortList[i][1]))):  # sortList[i][1].sort == node_lst.sort:
+            if set(sorted(node_lst)).issubset(set(sorted(sortList[i][1]))):
                 return sortList[i][1], sortList[i][0]
 
         return [], -1
