@@ -51,20 +51,20 @@ class GraphAlgo(GraphAlgoInterface):
             return False
         finally:
             W.close()
+            
     def TSP(self, node_lst: List[int]) -> (List[int], float):
-        min_tsp = []
-        nodes = self.get_graph().get_all_v()
-        for nodeStart in nodes:
-            for nodeForward in nodes:
-                if (nodeStart != nodeForward):
-                    min_tsp.append(self.shortest_path(nodeStart, nodeForward))
-        lstOfLst = [list(ele) for ele in min_tsp]
-        sortList = sorted(lstOfLst)
-        for i in range(len(sortList)):
-            if set(sorted(node_lst)).issubset(set(sorted(sortList[i][1]))):
-                return sortList[i][1], sortList[i][0]
+        min = []
+        for i in self.get_graph().get_all_v():
+            for j in self.get_graph().get_all_v():
+                if (i != j):
+                    min.append(self.shortest_path(i, j))
+        MAT = [list(e) for e in min]
+        sort = sorted(MAT)
+        for i in range(len(sort)):
+            if set(sorted(node_lst)).issubset(set(sorted(sort[i][1]))):
+                return sort[i][1], sort[i][0]
 
-        return [], -1
+        return [], -1    
 
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
