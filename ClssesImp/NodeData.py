@@ -2,12 +2,12 @@ import sys
 
 
 class NodeData:
-    def __init__(self, key, tag=0, pos=None):
+    def __init__(self, key, pos=None):
         self.__key = key
-        self.__tag = tag
+        self.__tag = 0
         self.__info = "none"
         self.__parent = None
-        self.__location = pos
+        self.__location = pos.split(",")
         self.__visited = False
         self.__dist = float('inf')
         self.__weight = 0
@@ -26,10 +26,14 @@ class NodeData:
         if v == 1:
             self.__visited = True
         else:
-            self.__visited=False
+            self.__visited = False
 
     def get_location(self):
-        return self.__location
+        res = []
+        for i in self.__location:
+            x: float = i
+            res.append(i)
+        return res
 
     def set_location(self, x, y, z):
         self.__location = (x, y, z)
@@ -81,9 +85,3 @@ class NodeData:
 
     def __gt__(self, other):
         return self.__tag > other.__tag
-
-
-if __name__ == '__main__':
-    a = {0: 1, 1: 2, 2: 3}
-    nodes = a.keys()
-    print(nodes)
