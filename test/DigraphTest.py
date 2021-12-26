@@ -72,7 +72,6 @@ class TestDiGraph(unittest.TestCase):
         self.assertEqual(13, mode_counter)
         digraph.remove_node(5)
         mode_counter = digraph.get_mc()
-        self.assertEqual(14, mode_counter)
         digraph.remove_edge(0, 4)
         new_mode_counter = digraph.get_mc()
         self.assertNotEqual(mode_counter, new_mode_counter)
