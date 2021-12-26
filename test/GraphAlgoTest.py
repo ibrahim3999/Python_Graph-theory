@@ -29,7 +29,8 @@ class GraphAlgoTest(unittest.TestCase):
 
     def test_shortest_path(self):
         graph = self.build_graph()
-        graph_a = GraphAlgo()
+        a=DiGraph()
+        graph_a = GraphAlgo(a)
         GraphAlgo.__init__(graph_a, graph)
 
         path_len = graph_a.shortest_path(2, 4).__getitem__(0)
