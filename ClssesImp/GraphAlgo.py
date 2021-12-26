@@ -1,12 +1,13 @@
 import json
 import sys
 from typing import List
-from queue import  PriorityQueue
+from queue import PriorityQueue
 from DiGraph import DiGraph
 from NodeData import NodeData
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
 import heapq as hq
+from GraphFrame import GraphFrame
 
 class GraphAlgo(GraphAlgoInterface):
 
@@ -51,7 +52,7 @@ class GraphAlgo(GraphAlgoInterface):
             return False
         finally:
             W.close()
-            
+
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         min = []
         for i in self.get_graph().get_all_v():
@@ -64,44 +65,45 @@ class GraphAlgo(GraphAlgoInterface):
             if set(sorted(node_lst)).issubset(set(sorted(sort[i][1]))):
                 return sort[i][1], sort[i][0]
 
-        return [], -1    
-
+        return [], -1
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if self.get_graph().get_all_v().get(id1) is None or self.get_graph().get_all_v().get(id2) is None:
             return float('inf'), []
         self.Rrefsh()
-        shortest_path = self.rec(id1, id2, self.dijkstra(self.get_graph().get_all_v().get(id1), self.get_graph().get_all_v().get(id2)))
+        shortest_path = self.rec(id1, id2, self.dijkstra(self.get_graph().get_all_v().get(id1),
+                                                         self.get_graph().get_all_v().get(id2)))
         return self.get_graph().get_all_v().get(id2).get_dist(), shortest_path
 
     def shortest_path_dist(self, id1: int, id2: int) -> (float, list):
         if self.get_graph().get_all_v().get(id1) is None or self.get_graph().get_all_v().get(id2) is None:
             return float('inf'), []
         self.Rrefsh()
-        shortest_path = self.rec(id1, id2, self.dijkstra(self.get_graph().get_all_v().get(id1), self.get_graph().get_all_v().get(id2)))
+        shortest_path = self.rec(id1, id2, self.dijkstra(self.get_graph().get_all_v().get(id1),
+                                                         self.get_graph().get_all_v().get(id2)))
         return self.get_graph().get_all_v().get(id2).get_dist()
 
     def centerPoint(self) -> (int, float):
         MaxResults = {}
-        MinKey=-1
+        MinKey = -1
         MinOfAll = float('inf')
         nodes = self.__G.get_all_v()
         for n in nodes:
             max = -1
             for n1 in nodes:
-                if(n!=n1):
-                    dist = self.shortest_path_dist(n,n1)
-                    if(dist!=float('inf')):
-                        if(max<dist):
-                            max=dist
+                if (n != n1):
+                    dist = self.shortest_path_dist(n, n1)
+                    if (dist != float('inf')):
+                        if (max < dist):
+                            max = dist
             MaxResults[n] = max
 
-        for key,val in MaxResults.items():
-            if(MaxResults.get(key)<MinOfAll):
-                MinOfAll=MaxResults.get(key)
-                MinKey=key
+        for key, val in MaxResults.items():
+            if (MaxResults.get(key) < MinOfAll):
+                MinOfAll = MaxResults.get(key)
+                MinKey = key
 
-        return MinKey,MinOfAll
+        return MinKey, MinOfAll
 
     def rec(self, src: int, dest: int, allPath: dict) -> list:
         if allPath.get(dest) is None:
@@ -119,7 +121,7 @@ class GraphAlgo(GraphAlgoInterface):
         src.set_visited(True)
         h: hq = []
         hq.heappush(h, (0, src))
-        res= {}
+        res = {}
         while len(h) > 0:
             n: NodeData = hq.heappop(h)[1]
             if n.get_key() == dest.get_key():
@@ -127,26 +129,35 @@ class GraphAlgo(GraphAlgoInterface):
             if not n.get_visited():
                 n.set_visited(True)
             for i in self.get_graph().all_out_edges_of_node(n.get_key()):
-                v: NodeData= self.get_graph().get_all_v().get(i)
+                v: NodeData = self.get_graph().get_all_v().get(i)
                 if not v.get_visited():
-                    if v.get_dist() == -1 or n.get_dist() + self.get_graph().all_out_edges_of_node(n.get_key()).get(i) < v.get_dist():
+                    if v.get_dist() == -1 or n.get_dist() + self.get_graph().all_out_edges_of_node(n.get_key()).get(
+                            i) < v.get_dist():
                         v.set_dist(n.get_dist() + self.get_graph().all_out_edges_of_node(n.get_key()).get(i))
                         hq.heappush(h, (n.get_dist() + self.get_graph().all_out_edges_of_node(n.get_key()).get(i), v))
                         res[v.get_key()] = n.get_key()
         return res
+
+
+
     def Rrefsh(self):
         vertx: dict = self.get_graph().get_all_v()
         for n in vertx:
             vertx.get(n).set_visited(False)
             vertx.get(n).set_dist(float('inf'))
+
+    def plot_graph(self):
+        GraphFrame(self.get_graph())
+
 if __name__ == '__main__':
-    b=GraphAlgo(DiGraph())
-    b.load_from_json(r"C:\Users\User\Desktop\Ex3\data\A0.json")
+    b = GraphAlgo(DiGraph())
+    b.load_from_json(r"C:\Users\User\Desktop\Ex3\data\A1.json")
     ##print(b.get_graph().all_out_edges_of_node(0))
     ##    x = "C:\\Users\\User\\Desktop\\Ex3\\data\\y.json"
     ## b.save_to_json(x)
-   ## print(b.getMax())
-   ## print(b.centerPoint())
-    print(b.centerPoint())
-    print(b.TSP([0,1,3]))
+    ## print(b.getMax())
+    ## print(b.centerPoint())
+    print(b.plot_graph())
+   # print(b.get_graph().get_all_v().get(0))
+
 
