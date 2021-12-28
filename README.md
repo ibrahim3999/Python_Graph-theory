@@ -12,6 +12,10 @@ This project represents the structure of a directed weighted graph.
 ---
 ## Run Time
 - cpu i7 , 16gb
+- 1000 Node:
+- shortest path:
+- center:
+- Tsp:
 ---
 ## UML
  ![uml](https://user-images.githubusercontent.com/93886878/147571824-756e5eb0-9270-45b4-9fe7-9e2589364849.png)
