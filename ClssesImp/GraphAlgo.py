@@ -1,7 +1,11 @@
+import matplotlib.pyplot as plot_graph
 import json
 import sys
 from typing import List
 from queue import PriorityQueue
+
+import matplotlib.pyplot as plt
+
 from DiGraph import DiGraph
 from NodeData import NodeData
 from src.GraphAlgoInterface import GraphAlgoInterface
@@ -147,17 +151,18 @@ class GraphAlgo(GraphAlgoInterface):
             vertx.get(n).set_dist(float('inf'))
 
     def plot_graph(self):
-        GraphFrame(self.get_graph())
+        GraphFrame(self.__G)
 
 if __name__ == '__main__':
     b = GraphAlgo(DiGraph())
-    b.load_from_json(r"C:\Users\User\Desktop\Ex3\data\A1.json")
+    b.load_from_json(r"C:\Users\User\Desktop\Ex3\data\A0.json")
     ##print(b.get_graph().all_out_edges_of_node(0))
     ##    x = "C:\\Users\\User\\Desktop\\Ex3\\data\\y.json"
     ## b.save_to_json(x)
     ## print(b.getMax())
     ## print(b.centerPoint())
-    print(b.plot_graph())
+    b.plot_graph()
+    ##print(b.get_graph().get_all_v().get(0))
    # print(b.get_graph().get_all_v().get(0))
 
 
