@@ -9,5 +9,6 @@ This project represents the structure of a directed weighted graph.
 ## Algorithms
 - Those algorithms was used to help to implement our methods.
 - [Dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
-##UML
+---
+## UML
  ![uml](https://user-images.githubusercontent.com/93886878/147571824-756e5eb0-9270-45b4-9fe7-9e2589364849.png)
