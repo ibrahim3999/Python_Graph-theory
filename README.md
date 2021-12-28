@@ -11,7 +11,7 @@ This project represents the structure of a directed weighted graph.
 - [Dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 ---
 ## Run Time
--
+- cpu i7 , 16gb
 ---
 ## UML
  ![uml](https://user-images.githubusercontent.com/93886878/147571824-756e5eb0-9270-45b4-9fe7-9e2589364849.png)
