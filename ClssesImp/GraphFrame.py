@@ -50,10 +50,12 @@ class GraphFrame:
                 x1 = float(node.get_location()[0])
                 x2 = float(self.graph.get_Node(edge).get_location()[0])
                 y1 = float(node.get_location()[1])
-                y2 = float(self.graph.get_Node(edge).get_location()[0])
+                y2 = float(self.graph.get_Node(edge).get_location()[1])
+                dx = abs(x1 - x2)
+                dy = abs(y1 - y2)
                 ax.arrow(x1, y1,
-                         abs(x1 - x2),
-                         abs(y1 - y2), label='Edges',
+                         dx,
+                         dy, label='Edges',
                          length_includes_head=True, width=0.00000389, head_width=x_lim * 0.007999,
                          head_length=y_lim * 0.01999)
 
