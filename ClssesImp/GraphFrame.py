@@ -21,8 +21,7 @@ class GraphFrame:
                 list_random_location_nodes.append(node)
         if list_random_location_nodes.__len__() == 0:
             return
-        for node in list_random_location_nodes:  # if the vertices don't have a location
-            # we set a random location for them
+        for node in list_random_location_nodes: 
             if node.get_location() is None:
                 node.set_location(random.uniform(0, 7), random.uniform(0, 7), 0)
 
