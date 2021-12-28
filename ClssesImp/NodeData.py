@@ -2,11 +2,12 @@ import sys
 
 
 class NodeData:
-    def __init__(self, key, pos=None):
+    def __init__(self, key, pos:tuple):
         self.__key = key
         self.__tag = 0
         self.__info = "none"
         self.__parent = None
+        self.pos = pos
         self.__location = pos.split(",")
         self.__visited = False
         self.__dist = float('inf')
