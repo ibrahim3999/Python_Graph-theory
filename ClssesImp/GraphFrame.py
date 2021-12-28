@@ -37,7 +37,7 @@ class GraphFrame:
                        label="Nodes", )  # Drawing the vertices using the position
         for i, txt in enumerate(keys):
             ax.annotate(keys[i], (nodes.get(keys[i]).get_location()[0], nodes.get(keys[i]).get_location()[1]),
-                        color='r')  # Drawing the keys of the vertices
+                        color='r') 
 
     def draw_edges(self, ax):
         eps = 0.0001
