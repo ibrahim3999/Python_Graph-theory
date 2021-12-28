@@ -12,7 +12,7 @@ This project represents the structure of a directed weighted graph.
 ---
 ## Run Time
 - cpu i7 , 16gb
-- 1000 Node:
+- 1000 Node file link : https://github.com/mohamedmagadlh/Ex3/blob/main/data/1000Nodes.json
 - shortest path:
 - center:
 - Tsp:
